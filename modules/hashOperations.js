@@ -19,5 +19,5 @@ export const hashOperations = (value) => {
       hash(path.join(currentPath));
       console.log('You are currently in ' + config.currentPath);
     })
-    .catch((err) => console.log('Invalid input'));
+    .catch(() => console.log('Operation failed'));
 };
