@@ -62,6 +62,7 @@ export const rm = (value) => {
     console.log('Operation failed');
   }
 };
+
 export const filesOperations = (command, value) => {
   switch (command) {
     case 'cat':

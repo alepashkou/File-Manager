@@ -31,19 +31,3 @@ export const up = () => {
   }
   console.log(`You are currently in ${config.currentPath}`);
 };
-
-export const nwdOperations = (value) => {
-  switch (true) {
-    case 'ls' === value.substring(0, 2):
-      ls();
-      break;
-    case 'cd' === value.substring(0, 2):
-      cd(value.substring(3));
-      break;
-    case 'up' === value.substring(0, 2):
-      up();
-      break;
-    default:
-      console.error('Invalid input');
-  }
-};
