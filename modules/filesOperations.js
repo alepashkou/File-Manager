@@ -50,6 +50,7 @@ export const rn = (value) => {
     console.log('Operation failed');
   }
 };
+
 export const rm = (value) => {
   try {
     checkPath(value.trim()).then((currentPath) => {
@@ -63,21 +64,46 @@ export const rm = (value) => {
   }
 };
 
-export const filesOperations = (command, value) => {
-  switch (command) {
-    case 'cat':
-      cat(value);
-      break;
-    case 'add':
-      add(value);
-      break;
-    case 'rn':
-      rn(value);
-      break;
-    case 'rm':
-      rm(value);
-      break;
-    default:
-      console.error('Invalid input');
+export const cp = (value) => {
+  try {
+    const arrayPath = [];
+    const fileName = path.basename(value.split(' ')[0]);
+
+    arrayPath.push(checkPath(value.split(' ')[0]));
+    arrayPath.push(checkPath(value.split(' ')[1]));
+
+    Promise.all(arrayPath)
+      .then((allPath) => {
+        const correctPath = path.join(allPath[1], fileName);
+        fs.promises.cp(allPath[0], correctPath).then(() => {
+          console.log(`Copied: ${fileName} to ${value.split(' ')[1]}`);
+          console.log(`You are currently in ${config.currentPath}`);
+        });
+      })
+      .catch(() => console.log('Operation failed'));
+  } catch (e) {
+    console.log('Operation failed');
+  }
+};
+
+export const mv = (value) => {
+  try {
+    const arrayPath = [];
+    const fileName = path.basename(value.split(' ')[0]);
+
+    arrayPath.push(checkPath(value.split(' ')[0]));
+    arrayPath.push(checkPath(value.split(' ')[1]));
+
+    Promise.all(arrayPath)
+      .then((allPath) => {
+        const correctPath = path.join(allPath[1], fileName);
+        fs.promises.rename(allPath[0], correctPath).then(() => {
+          console.log(`Moved: ${fileName} to ${value.split(' ')[1]}`);
+          console.log(`You are currently in ${config.currentPath}`);
+        });
+      })
+      .catch(() => console.log('Operation failed'));
+  } catch (e) {
+    console.log('Operation failed');
   }
 };

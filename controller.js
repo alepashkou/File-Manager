@@ -2,13 +2,7 @@ import { osOperations } from './modules/osOperations.js';
 import { cd, up, ls } from './modules/nwdOperations.js';
 import { hashOperations } from './modules/hashOperations.js';
 // import { compressZip } from './modules/zipOperations.js';
-import {
-  filesOperations,
-  cat,
-  add,
-  rn,
-  rm,
-} from './modules/filesOperations.js';
+import { cat, add, rn, rm, cp, mv } from './modules/filesOperations.js';
 
 export const controller = (value) => {
   switch (true) {
@@ -38,6 +32,12 @@ export const controller = (value) => {
       break;
     case 'rm' === value.substring(0, 2):
       rm(value.substring(2).trim());
+      break;
+    case 'cp' === value.substring(0, 2):
+      cp(value.substring(2).trim());
+      break;
+    case 'mv' === value.substring(0, 2):
+      mv(value.substring(2).trim());
       break;
     // case 'compress' === value.substring(0, 8):
     //   compressZip(value.substring(8).trim());
