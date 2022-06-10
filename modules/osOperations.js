@@ -1,4 +1,5 @@
 import os from 'os';
+import { config } from '../config.js';
 
 export const osOperations = (value) => {
   switch (value) {
@@ -18,6 +19,7 @@ export const osOperations = (value) => {
       console.log(os.arch());
       break;
     default:
-      console.error('Invalid input');
+      console.error('❌ Invalid input');
   }
+  console.log(`📁 You are currently in ${config.currentPath}`);
 };

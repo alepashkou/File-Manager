@@ -9,8 +9,8 @@ export const ls = () => {
     .then((files) => {
       console.log(files);
     })
-    .catch(() => console.log('Operation failed'));
-  console.log(`You are currently in ${config.currentPath}`);
+    .catch(() => console.log('❌ Operation failed'));
+  console.log(`📁 You are currently in ${config.currentPath}`);
 };
 
 export const cd = (value) => {
@@ -19,9 +19,9 @@ export const cd = (value) => {
       if (!checkIsFile(currentPath)) {
         config.currentPath = currentPath;
       }
-      console.log(`You are currently in ${config.currentPath}`);
+      console.log(`📁 You are currently in ${config.currentPath}`);
     })
-    .catch(() => console.log('Operation failed'));
+    .catch(() => console.log('❌ Operation failed'));
 };
 
 export const up = () => {
@@ -29,5 +29,5 @@ export const up = () => {
   if (newPath.length >= 1) {
     config.currentPath = newPath.join(path.sep);
   }
-  console.log(`You are currently in ${config.currentPath}`);
+  console.log(`📁 You are currently in ${config.currentPath}`);
 };

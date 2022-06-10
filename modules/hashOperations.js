@@ -10,14 +10,14 @@ export const hash = async (path) => {
   hash.update(buf);
   const hex = hash.digest('hex');
   console.log(hex);
-  console.log(`You are currently in ${config.currentPath}`);
+  console.log(`📁 You are currently in ${config.currentPath}`);
 };
 
 export const hashOperations = (value) => {
   checkPath(value)
     .then((currentPath) => {
       hash(path.join(currentPath));
-      console.log('You are currently in ' + config.currentPath);
+      console.log('📁 You are currently in ' + config.currentPath);
     })
     .catch(() => console.log('Operation failed'));
 };
