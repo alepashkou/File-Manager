@@ -1,19 +1,19 @@
 import path from 'path';
 import fs from 'fs';
 import { config } from '../config.js';
-import { checkPath } from '../functions/checkPath.js';
-import { checkIsFile } from '../functions/checkIsFile.js';
+import { checkPath } from './checkPath.js';
+import { checkIsFile } from './checkIsFile.js';
 
 export const cat = (value) => {
   checkPath(value.trim())
     .then((currentPath) => {
       if (checkIsFile(currentPath)) {
         let data = [];
-        const readStream = fs.createReadStream(path.join(currentPath));
-        readStream.on('data', (chunk) => {
+        const rStream = fs.createReadStream(path.join(currentPath));
+        rStream.on('data', (chunk) => {
           data.push(chunk.toString());
         });
-        readStream.on('end', () => {
+        rStream.on('end', () => {
           console.log(data.join(''));
           console.log(`📁 You are currently in ${config.currentPath}`);
         });

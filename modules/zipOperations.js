@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import zlib from 'zlib';
-import { checkPath } from '../functions/checkPath.js';
+import { checkPath } from './checkPath.js';
 import { config } from '../config.js';
 
 export const compress = (value) => {

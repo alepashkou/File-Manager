@@ -1,4 +1,4 @@
-import { getName } from './functions/getName.js';
+import { getName } from './modules/getName.js';
 
 export const config = {
   user: getName(),

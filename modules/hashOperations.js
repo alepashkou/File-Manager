@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import crypto from 'crypto';
 import { config } from '../config.js';
-import { checkPath } from '../functions/checkPath.js';
+import { checkPath } from './checkPath.js';
 
 export const hash = async (path) => {
   const buf = await fs.readFile(path);

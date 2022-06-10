@@ -1,8 +1,8 @@
 import { config } from '../config.js';
 import fs from 'fs/promises';
 import path from 'path';
-import { checkPath } from '../functions/checkPath.js';
-import { checkIsFile } from '../functions/checkIsFile.js';
+import { checkPath } from './checkPath.js';
+import { checkIsFile } from './checkIsFile.js';
 
 export const ls = () => {
   fs.readdir(config.currentPath)
