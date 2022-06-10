@@ -10,7 +10,7 @@ export const osOperations = (value) => {
       console.log(os.cpus());
       break;
     case '--homedir':
-      console.log(os.homedir());
+      console.log('📁 ' + os.homedir());
       break;
     case '--username':
       console.log(os.userInfo().username);

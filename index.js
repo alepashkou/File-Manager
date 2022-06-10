@@ -6,7 +6,7 @@ import { controller } from './controller.js';
 const rl = readline.createInterface({ input, output });
 
 console.log(`Welcome to the File Manager, ${config.user}!`);
-console.log(`You are currently in ${config.currentPath}`);
+console.log(`📁 You are currently in ${config.currentPath}`);
 
 rl.on('line', (input) => {
   if (input.trim() === '.exit') {

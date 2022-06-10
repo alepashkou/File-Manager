@@ -11,16 +11,9 @@ export const checkPath = (value) => {
         resolve(currentPath);
       })
       .catch(() => {
-        fs.access(absolutePath)
-          .then(() => {
-            resolve(absolutePath);
-          })
-          .catch(() => {
-            reject('Operation failed: No acess to this path');
-          });
-      })
-      .catch(() => {
-        reject('Operation failed: No acess to this path');
+        fs.access(absolutePath).then(() => {
+          resolve(absolutePath);
+        });
       });
   });
 };
