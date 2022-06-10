@@ -1,15 +1,16 @@
 import path from 'path';
-import fs from 'fs/promises';
+import fs from 'fs';
 import crypto from 'crypto';
 import { config } from '../config.js';
 import { checkPath } from './checkPath.js';
 
 export const hash = async (path) => {
-  const buf = await fs.readFile(path);
   const hash = crypto.createHash('sha256');
-  hash.update(buf);
-  const hex = hash.digest('hex');
-  console.log(hex);
+  const rStream = fs.createReadStream(path);
+  rStream.on('data', (chunk) => hash.update(chunk));
+  rStream.on('end', () => {
+    console.log(hash.digest('hex'));
+  });
 };
 
 export const hashOperations = (value) => {

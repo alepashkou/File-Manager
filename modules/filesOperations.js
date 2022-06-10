@@ -75,7 +75,11 @@ export const cp = (value) => {
     Promise.all(arrayPath)
       .then((allPath) => {
         const correctPath = path.join(allPath[1], fileName);
-        fs.promises.cp(allPath[0], correctPath).then(() => {
+
+        const rStream = fs.createReadStream(allPath[0]);
+        const wStream = fs.createWriteStream(correctPath);
+
+        rStream.pipe(wStream).on('close', () => {
           console.log(`✅ Copied: ${fileName} to ${value.split(' ')[1]}`);
           console.log(`📁 You are currently in ${config.currentPath}`);
         });
@@ -97,9 +101,18 @@ export const mv = (value) => {
     Promise.all(arrayPath)
       .then((allPath) => {
         const correctPath = path.join(allPath[1], fileName);
-        fs.promises.rename(allPath[0], correctPath).then(() => {
-          console.log(`✅ Moved: ${fileName} to ${value.split(' ')[1]}`);
-          console.log(`📁 You are currently in ${config.currentPath}`);
+
+        const rStream = fs.createReadStream(allPath[0]);
+        const wStream = fs.createWriteStream(correctPath);
+
+        rStream.pipe(wStream).on('close', () => {
+          fs.promises
+            .unlink(allPath[0])
+            .then(() => {
+              console.log(`✅ Movied: ${fileName} to ${value.split(' ')[1]}`);
+              console.log(`📁 You are currently in ${config.currentPath}`);
+            })
+            .catch(() => console.log('❌ Operation failed'));
         });
       })
       .catch(() => console.log('❌ Operation failed'));

@@ -11,9 +11,11 @@ export const checkPath = (value) => {
         resolve(currentPath);
       })
       .catch(() => {
-        fs.access(absolutePath).then(() => {
-          resolve(absolutePath);
-        });
+        fs.access(absolutePath)
+          .then(() => {
+            resolve(absolutePath);
+          })
+          .catch(() => console.log('❌ Operation failed'));
       });
   });
 };
