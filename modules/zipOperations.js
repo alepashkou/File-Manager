@@ -3,14 +3,16 @@ import path from 'path';
 import zlib from 'zlib';
 import { checkPath } from './checkPath.js';
 import { config } from '../config.js';
+import { parseString } from './parseString.js';
 
 export const compress = (value) => {
   try {
     const arrayPath = [];
-    const fileName = path.basename(value.split(' ')[0]);
+    const parsingString = parseString(value);
+    const fileName = path.basename(parsingString[0]);
 
-    arrayPath.push(checkPath(value.split(' ')[0]));
-    arrayPath.push(checkPath(value.split(' ')[1]));
+    arrayPath.push(checkPath(parsingString[0]));
+    arrayPath.push(checkPath(parsingString[1]));
 
     Promise.all(arrayPath)
       .then((allPath) => {
@@ -23,7 +25,7 @@ export const compress = (value) => {
         const brotli = zlib.createBrotliCompress();
 
         const stream = readStream.pipe(brotli).pipe(writeStream);
-
+        stream.on('error', () => console.log('❌ Operation failed'));
         stream.on('finish', () => {
           console.log('✅ Done compressing');
           console.log(`📁 You are currently in ${config.currentPath}`);
@@ -38,10 +40,11 @@ export const compress = (value) => {
 export const decompress = (value) => {
   try {
     const arrayPath = [];
-    const fileName = path.basename(value.split(' ')[0]);
+    const parsingString = parseString(value);
+    const fileName = path.basename(parsingString[0]);
 
-    arrayPath.push(checkPath(value.split(' ')[0]));
-    arrayPath.push(checkPath(value.split(' ')[1]));
+    arrayPath.push(checkPath(parsingString[0]));
+    arrayPath.push(checkPath(parsingString[1]));
 
     Promise.all(arrayPath)
       .then((allPath) => {

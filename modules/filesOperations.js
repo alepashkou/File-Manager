@@ -3,6 +3,7 @@ import fs from 'fs';
 import { config } from '../config.js';
 import { checkPath } from './checkPath.js';
 import { checkIsFile } from './checkIsFile.js';
+import { parseString } from './parseString.js';
 
 export const cat = (value) => {
   checkPath(value.trim())
@@ -12,6 +13,9 @@ export const cat = (value) => {
         const rStream = fs.createReadStream(path.join(currentPath));
         rStream.on('data', (chunk) => {
           data.push(chunk.toString());
+        });
+        rStream.on('error', () => {
+          console.log('❌ Operation failed');
         });
         rStream.on('end', () => {
           console.log(data.join(''));
@@ -28,7 +32,7 @@ export const add = async (value) => {
   wStream.on('error', () => {
     console.log('❌ Operation failed');
   });
-  wStream.on('close', () => {
+  wStream.on('finish', () => {
     console.log(`✅ Created: ${value}`);
     console.log(`📁 You are currently in ${config.currentPath}`);
   });
@@ -67,10 +71,11 @@ export const rm = (value) => {
 export const cp = (value) => {
   try {
     const arrayPath = [];
-    const fileName = path.basename(value.split(' ')[0]);
+    const parsingString = parseString(value);
+    const fileName = path.basename(parsingString[0]);
 
-    arrayPath.push(checkPath(value.split(' ')[0]));
-    arrayPath.push(checkPath(value.split(' ')[1]));
+    arrayPath.push(checkPath(parsingString[0]));
+    arrayPath.push(checkPath(parsingString[1]));
 
     Promise.all(arrayPath)
       .then((allPath) => {
@@ -93,10 +98,11 @@ export const cp = (value) => {
 export const mv = (value) => {
   try {
     const arrayPath = [];
-    const fileName = path.basename(value.split(' ')[0]);
+    const parsingString = parseString(value);
+    const fileName = path.basename(parsingString[0]);
 
-    arrayPath.push(checkPath(value.split(' ')[0]));
-    arrayPath.push(checkPath(value.split(' ')[1]));
+    arrayPath.push(checkPath(parsingString[0]));
+    arrayPath.push(checkPath(parsingString[1]));
 
     Promise.all(arrayPath)
       .then((allPath) => {

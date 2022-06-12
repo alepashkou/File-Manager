@@ -1,5 +1,6 @@
 import os from 'os';
 import { config } from '../config.js';
+import { cpus } from './cpus.js';
 
 export const osOperations = (value) => {
   switch (value) {
@@ -7,7 +8,7 @@ export const osOperations = (value) => {
       console.log(JSON.stringify(os.EOL));
       break;
     case '--cpus':
-      console.log(os.cpus());
+      cpus();
       break;
     case '--homedir':
       console.log('📁 ' + os.homedir());

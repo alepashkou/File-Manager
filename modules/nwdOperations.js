@@ -8,9 +8,9 @@ export const ls = () => {
   fs.readdir(config.currentPath)
     .then((files) => {
       console.log(files);
+      console.log(`📁 You are currently in ${config.currentPath}`);
     })
     .catch(() => console.log('❌ Operation failed'));
-  console.log(`📁 You are currently in ${config.currentPath}`);
 };
 
 export const cd = (value) => {
