@@ -41,12 +41,11 @@ export const add = async (value) => {
 
 export const rn = (value) => {
   try {
-    checkPath(value.split(' ')[0]).then((currentPath) => {
-      const newFileName = path.join(config.currentPath, value.split(' ')[1]);
+    const parsingString = parseString(value);
+    checkPath(parsingString[0]).then((currentPath) => {
+      const newFileName = path.join(config.currentPath, parsingString[1]);
       fs.promises.rename(currentPath, newFileName).then(() => {
-        console.log(
-          `✅ Renamed: ${value.split(' ')[0]} to ${value.split(' ')[1]}`
-        );
+        console.log(`✅ Renamed: ${parsingString[0]} to ${parsingString[1]}`);
         console.log(`📁 You are currently in ${config.currentPath}`);
       });
     });
@@ -85,7 +84,7 @@ export const cp = (value) => {
         const wStream = fs.createWriteStream(correctPath);
 
         rStream.pipe(wStream).on('close', () => {
-          console.log(`✅ Copied: ${fileName} to ${value.split(' ')[1]}`);
+          console.log(`✅ Copied: ${fileName} to ${parsingString[1]}`);
           console.log(`📁 You are currently in ${config.currentPath}`);
         });
       })
@@ -115,7 +114,7 @@ export const mv = (value) => {
           fs.promises
             .unlink(allPath[0])
             .then(() => {
-              console.log(`✅ Movied: ${fileName} to ${value.split(' ')[1]}`);
+              console.log(`✅ Movied: ${fileName} to ${parsingString[1]}`);
               console.log(`📁 You are currently in ${config.currentPath}`);
             })
             .catch(() => console.log('❌ Operation failed'));

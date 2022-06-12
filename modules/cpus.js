@@ -9,6 +9,7 @@ export const cpus = () => {
       };
     });
     console.log('Number of CPU: ' + os.cpus().length);
+    console.log('Model CPU: ' + os.cpus()[0].model);
     console.log(cpus);
   } catch (e) {
     console.log('❌ Operation failed');
