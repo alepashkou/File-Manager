@@ -5,7 +5,10 @@ export const cpus = () => {
     const cpus = cpusAll.map((cpu) => {
       return {
         model: cpu.model,
-        speed: cpu.speed / 1000 + ' GHz',
+        speed:
+          cpu.speed > 1000
+            ? cpu.speed / 1000 + ' GHz'
+            : cpu.speed / 10 + ' GHz',
       };
     });
     console.log('Number of CPU: ' + os.cpus().length);
